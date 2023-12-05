@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 import ast 
 from tkinter import ttk
-from PIL import ImageTk, Image
+from PIL import ImageTk, Image, ImageDraw
 
 root=Tk()
 root.title('Login')
