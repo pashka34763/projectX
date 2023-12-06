@@ -2,19 +2,19 @@ from tkinter import *
 from tkinter import messagebox
 import ast 
 from tkinter import ttk
-from PIL import ImageTk, Image
+from PIL import ImageTk, Image, ImageDraw
 
 root=Tk()
 root.title('Login')
 root.geometry('925x500+300+200')
 root.configure(bg="#fff")
-root.iconbitmap('project\kevin.ico')
+root.iconbitmap('kevin.ico')
 
 def signin():
     username=user.get()
     password=code.get()
 
-    file = open('project\datasheet.txt', 'r')
+    file = open('datasheet.txt', 'r')
     d=file.read()
     r=ast.literal_eval(d)
     file.close()
@@ -26,7 +26,7 @@ def signin():
         screen.title("Weather_App")
         screen.geometry('925x500+300+200')
         screen.config(bg='white')
-        screen.iconbitmap('project\kevin.ico')
+        screen.iconbitmap('kevin.ico')
 
         Label(screen, text='SHERMAN!!!', bg='#fff', font=('Calibry(Body)',20,'bold')).pack()
 
@@ -67,7 +67,7 @@ def signup_command():
     window.title("SignUp")
     window.geometry('925x500+300+200')
     window.configure(bg='#fff')
-    window.iconbitmap('project\kevin.ico')
+    window.iconbitmap('kevin.ico')
 
     def signup():
         username = user.get()
@@ -76,7 +76,7 @@ def signup_command():
 
         if password==conform_password:
             try:
-                file=open('project\datasheet.txt','r+')
+                file=open('datasheet.txt','r+')
                 d=file.read()
                 r=ast.literal_eval(d)
 
@@ -85,7 +85,7 @@ def signup_command():
                 file.truncate(0)
                 file.close()
 
-                file=open('project\datasheet.txt','w')
+                file=open('datasheet.txt','w')
                 w=file.write(str(r))
             
 
@@ -93,7 +93,7 @@ def signup_command():
                 messagebox.showinfo('Signup','Successfully sign up')
 
             except:
-                file=open('project\datasheet.txt','w')
+                file=open('datasheet.txt','w')
                 pp=str({'Username':'password'})
                 file.write(pp)
                 file.close()
@@ -105,7 +105,7 @@ def signup_command():
         window.destroy()
 
 
-    img = PhotoImage(file='project\login.png')
+    img = PhotoImage(file='login.png')
     Label(window,image=img,border=0,bg='white').place(x=50,y=90)
 
     frame = Frame(window, width=350, height=390, bg='#fff')
@@ -139,12 +139,44 @@ def signup_command():
         if code.get()=='':
             code.insert(0, 'Password')
 
+    def toggle_password1():
+        if code.cget("show") == "*":
+            code.config(show="")
+            # Изменить изображение на закрытый глаз
+            eye_image = Image.open("closeye.png")
+        else:
+            code.config(show="*")
+            # Изменить изображение на открытый глаз
+            eye_image = Image.open("openeye.png")
+    
+        # Изменить размер изображения
+        eye_image = eye_image.resize((20, 20), Image.BICUBIC)
+        # Создать объект изображения Tkinter
+        eye_photo = ImageTk.PhotoImage(eye_image)
+        # Обновить изображение кнопки
+        toggle_button.config(image=eye_photo)
+        toggle_button.image = eye_photo
+
 
     code = Entry(frame, width=25, fg='black', border=0, bg='white', font=('Microsoft Yahei UI Light',11))
     code.place(x=30,y=150)
     code.insert(0, 'Password')
     code.bind("<FocusIn>", on_enter)
     code.bind("<FocusOut>", on_leave)
+
+    closed_eye_image = Image.open("closeye.png")
+    open_eye_image = Image.open("openeye.png")
+
+    # Изменить размер изображений
+    closed_eye_image = closed_eye_image.resize((20, 20), Image.BICUBIC)
+    open_eye_image = open_eye_image.resize((20, 20), Image.BICUBIC)
+
+    # Создать объекты изображений Tkinter
+    closed_eye_photo = ImageTk.PhotoImage(closed_eye_image)
+    open_eye_photo = ImageTk.PhotoImage(open_eye_image)
+
+    toggle_button = Button(frame, image=open_eye_photo, command=toggle_password1)
+    toggle_button.place(x=320,y=150)
 
     Frame(frame, width=295, height=2, bg='black').place(x=25,y=177)
 
@@ -156,12 +188,44 @@ def signup_command():
         if conform_code.get()=='':
             conform_code.insert(0, 'Conform password')
 
+    def toggle_password2():
+        if conform_code.cget("show") == "*":
+            conform_code.config(show="")
+            # Изменить изображение на закрытый глаз
+            eye_image = Image.open("closeye.png")
+        else:
+            conform_code.config(show="*")
+            # Изменить изображение на открытый глаз
+            eye_image = Image.open("openeye.png")
+    
+        # Изменить размер изображения
+        eye_image = eye_image.resize((20, 20), Image.BICUBIC)
+        # Создать объект изображения Tkinter
+        eye_photo = ImageTk.PhotoImage(eye_image)
+        # Обновить изображение кнопки
+        toggle_button.config(image=eye_photo)
+        toggle_button.image = eye_photo
+
 
     conform_code = Entry(frame, width=25, fg='black', border=0, bg='white', font=('Microsoft Yahei UI Light',11))
     conform_code.place(x=30,y=220)
     conform_code.insert(0, 'Conform password')
     conform_code.bind("<FocusIn>", on_enter)
     conform_code.bind("<FocusOut>", on_leave)
+
+    closed_eye_image = Image.open("closeye.png")
+    open_eye_image = Image.open("openeye.png")
+
+    # Изменить размер изображений
+    closed_eye_image = closed_eye_image.resize((20, 20), Image.BICUBIC)
+    open_eye_image = open_eye_image.resize((20, 20), Image.BICUBIC)
+
+    # Создать объекты изображений Tkinter
+    closed_eye_photo = ImageTk.PhotoImage(closed_eye_image)
+    open_eye_photo = ImageTk.PhotoImage(open_eye_image)
+
+    toggle_button = Button(frame, image=open_eye_photo, command=toggle_password2)
+    toggle_button.place(x=320,y=150)
 
     Frame(frame, width=295, height=2, bg='black').place(x=25,y=247)
 
@@ -178,7 +242,7 @@ def signup_command():
 
 ##################################################################################################################################################################
 
-img = PhotoImage(file='project\login2.png')
+img = PhotoImage(file='login2.png')
 Label(root, image=img, bg='white').place(x=50,y=50)
 
 frame = Frame(root, width=350, height=350, bg='#fff')
@@ -219,11 +283,11 @@ def toggle_password():
     if code.cget("show") == "*":
         code.config(show="")
         # Изменить изображение на закрытый глаз
-        eye_image = Image.open("project\closeye.png")
+        eye_image = Image.open("closeye.png")
     else:
         code.config(show="*")
         # Изменить изображение на открытый глаз
-        eye_image = Image.open("project\openeye.png")
+        eye_image = Image.open("openeye.png")
     
     # Изменить размер изображения
     eye_image = eye_image.resize((20, 20), Image.BICUBIC)
@@ -239,8 +303,8 @@ code.insert(0,'Password')
 code.bind('<FocusIn>', on_enter)
 code.bind('<FocusOut>', on_leave)
 
-closed_eye_image = Image.open("project\closeye.png")
-open_eye_image = Image.open("project\openeye.png")
+closed_eye_image = Image.open("closeye.png")
+open_eye_image = Image.open("openeye.png")
 
 # Изменить размер изображений
 closed_eye_image = closed_eye_image.resize((20, 20), Image.BICUBIC)
