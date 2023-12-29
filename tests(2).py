@@ -141,23 +141,15 @@ def signup_command():
         if name1=='':
             code.insert(0, 'Password')
 
-    def toggle_password1():
-        if code.cget("show") == "*":
-            code.config(show="")
-            # Изменить изображение на закрытый глаз
-            eye_image = Image.open("closeye.png")
+    def toggle_password():
+        if code['show'] == '*':
+            code.config(show='')
+            conform_code.config(show='')
+            toggle_button.config(image=open_eye_photo)
         else:
-            code.config(show="*")
-            # Изменить изображение на открытый глаз
-            eye_image = Image.open("openeye.png")
-
-        # Изменить размер изображения
-        eye_image = eye_image.resize((20, 20), Image.BICUBIC)
-        # Создать объект изображения Tkinter
-        eye_photo = ImageTk.PhotoImage(eye_image)
-        # Обновить изображение кнопки
-        toggle_button1.config(image=eye_photo)
-        toggle_button1.image = eye_photo
+            code.config(show='*')
+            conform_code.config(show='*')
+            toggle_button.config(image=closed_eye_photo)
 
     code = Entry(frame, width=25, fg='black', border=0, bg='white', font=('Microsoft Yahei UI Light',11))
     code.place(x=30,y=150)
@@ -165,19 +157,6 @@ def signup_command():
     code.bind("<FocusIn>", on_enter)
     code.bind("<FocusOut>", on_leave)
     
-    closed_eye_image = Image.open("closeye.png")
-    open_eye_image = Image.open("openeye.png")
-
-    # Изменить размер изображений
-    closed_eye_image = closed_eye_image.resize((20, 20), Image.BICUBIC)
-    open_eye_image = open_eye_image.resize((20, 20), Image.BICUBIC)
-
-    # Создать объекты изображений Tkinter
-    closed_eye_photo = ImageTk.PhotoImage(closed_eye_image)
-    open_eye_photo = ImageTk.PhotoImage(open_eye_image)
-
-    toggle_button1 = Button(frame, image=open_eye_photo, command=toggle_password1)
-    toggle_button1.place(x=320,y=150)
 
     Frame(frame, width=295, height=2, bg='black').place(x=25,y=177)
 
@@ -192,24 +171,6 @@ def signup_command():
         if name2=='':
             conform_code.insert(0, 'Conform Password')
 
-    def toggle_password2():
-        if conform_code.cget("show") == "*":
-            conform_code.config(show="")
-            # Изменить изображение на закрытый глаз
-            eye_image = Image.open("closeye.png")
-        else:
-            conform_code.config(show="*")
-            # Изменить изображение на открытый глаз
-            eye_image = Image.open("openeye.png")
-
-        # Изменить размер изображения
-        eye_image = eye_image.resize((20, 20), Image.BICUBIC)
-        # Создать объект изображения Tkinter
-        eye_photo = ImageTk.PhotoImage(eye_image)
-        # Обновить изображение кнопки
-        toggle_button2.config(image=eye_photo)
-        toggle_button2.image = eye_photo
-
 
     conform_code = Entry(frame, width=25, fg='black', border=0, bg='white', font=('Microsoft Yahei UI Light',11))
     conform_code.place(x=30,y=220)
@@ -217,19 +178,19 @@ def signup_command():
     conform_code.bind("<FocusIn>", on_enter)
     conform_code.bind("<FocusOut>", on_leave)
 
+    eye_image = Image.open("openeye.png")
     closed_eye_image = Image.open("closeye.png")
-    open_eye_image = Image.open("openeye.png")
 
     # Изменить размер изображений
+    eye_image = eye_image.resize((20, 20), Image.BICUBIC)
     closed_eye_image = closed_eye_image.resize((20, 20), Image.BICUBIC)
-    open_eye_image = open_eye_image.resize((20, 20), Image.BICUBIC)
 
     # Создать объекты изображений Tkinter
+    open_eye_photo = ImageTk.PhotoImage(eye_image)
     closed_eye_photo = ImageTk.PhotoImage(closed_eye_image)
-    open_eye_photo = ImageTk.PhotoImage(open_eye_image)
 
-    toggle_button2 = Button(frame, image=open_eye_photo, command=toggle_password2)
-    toggle_button2.place(x=320,y=220)
+    toggle_button = Button(frame, image=closed_eye_photo, command=toggle_password)
+    toggle_button.pack()
 
     Frame(frame, width=295, height=2, bg='black').place(x=25,y=247)
 
